@@ -5,7 +5,7 @@
 <mapper namespace="com.springboot.mapper.UserMapper">
     <insert id="AddUser">
         insert into t_user(Id, UserName, PassWord, Sex, Age, Email)
-        values(null, #{UserName}, #{PassWord}, #{Sex}, #{Age}, #{Email})
+        values (null, #{UserName}, #{PassWord}, #{Sex}, #{Age}, #{Email})
     </insert>
 
     <select id="SelectAllUser" resultType="User">
@@ -13,12 +13,17 @@
     </select>
 
     <select id="SelectUserByUserName" resultType="User">
-        select * from t_user where UserName = #{username} and Id = 2
-        # select * from t_user where Id = 2 and UserName = '${username}'
+        select *
+        from t_user
+        where Id = 2
+          and UserName = #{username}
     </select>
 
     <select id="Login" resultType="User">
         # select * from t_user where UserName = #{username} and PassWord = #{password}
-        select * from t_user where UserName = #{param1} and PassWord = #{param2}
+        select *
+        from t_user
+        where UserName = #{param1}
+          and PassWord = #{param2}
     </select>
 </mapper>

@@ -20,7 +20,7 @@ public class Result<T> {
 
     public Result<T> Except(Exception ex){
         this.code = -1;
-        this.msg = ex.getMessage();
+        this.msg = "Exception Message:" + ex.getMessage();
         return this;
     }
 

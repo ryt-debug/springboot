@@ -73,7 +73,8 @@ public class TestController {
     @GetMapping("/selectUserByUserName")
     public Result<?> SelectUserByUserName(){
         try{
-            return new Result<>().Data(userMapper.SelectUserByUserName("admin"));
+            var user = userMapper.SelectUserByUserName("admin");
+            return new Result<>().Data(user);
         }
         catch (Exception ex){
             return new Result<>().Except(ex);

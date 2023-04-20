@@ -19,7 +19,7 @@
     <!-- %m输出的信息,%p日志级别,%t线程名,%d日期,%c类的全名,%-5level:级别从左显示5个字符宽度,%msg:日志消息,%i索引【从数字0开始递增】 -->
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-            <level>INFO</level>
+            <level>DEBUG</level>
         </filter>
         <encoder>
             <!--%logger{50}:表示logger名字最长50个字符，否则按照句点分割-->
@@ -44,13 +44,13 @@
             <!-- 日志归档 后面可以加.zip-->
             <fileNamePattern>${LOG_PATH}public-%d{yyyy-MM-dd}.%i.log</fileNamePattern>
             <!--日志文件保留天数-->
-            <maxHistory>100</maxHistory>
+            <maxHistory>10</maxHistory>
             <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
                 <!--文件达到 最大时会被压缩和切割 -->
-                <maxFileSize>10MB</maxFileSize>
+                <maxFileSize>5MB</maxFileSize>
             </timeBasedFileNamingAndTriggeringPolicy>
             <!--日志总保存量为200MB-->
-            <totalSizeCap>200MB</totalSizeCap>
+            <totalSizeCap>10MB</totalSizeCap>
         </rollingPolicy>
     </appender>
 
