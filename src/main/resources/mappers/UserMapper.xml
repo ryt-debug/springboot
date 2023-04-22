@@ -3,6 +3,16 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.springboot.mapper.UserMapper">
+    <!--  查询结果没有任何一个实体类与其相对应的时候，就把该结果转换为Map  -->
+    <resultMap id="ResultMap" type="com.springboot.entity.User">
+        <id column="Id" jdbcType="INTEGER" property="Id"/>
+        <result column="UserName" jdbcType="VARCHAR" property="UserName"/>
+        <result column="PassWord" jdbcType="VARCHAR" property="PassWord"/>
+        <result column="Age" jdbcType="INTEGER" property="Age"/>
+        <result column="Sex" jdbcType="BIT" property="Sex"/>
+        <result column="Email" jdbcType="VARCHAR" property="Email"/>
+    </resultMap>
+    
     <insert id="AddUser">
         insert into t_user(Id, UserName, PassWord, Sex, Age, Email)
         values (null, #{UserName}, #{PassWord}, #{Sex}, #{Age}, #{Email})
@@ -23,7 +33,26 @@
         # select * from t_user where UserName = #{username} and PassWord = #{password}
         select *
         from t_user
-        where UserName = #{param1}
-          and PassWord = #{param2}
+        where UserName = #{username}
+          and PassWord = #{password}
+    </select>
+    
+    <select id="GetUserById" resultType="User">
+        select *
+        from t_user
+        where Id = #{id}
+    </select>
+
+    <select id="GetUserCount" resultType="int">
+        select count(*)
+        from t_user
+    </select>
+
+    <select id="GetUserByIdToMap" resultType="Map">
+        select * from t_user where id = #{id}
+    </select>
+
+    <select id="GetAllUserToMap" resultType="Map">
+        select * from t_user
     </select>
 </mapper>

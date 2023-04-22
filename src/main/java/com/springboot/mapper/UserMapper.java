@@ -1,9 +1,13 @@
 package com.springboot.mapper;
 
+import com.fasterxml.jackson.databind.introspect.AnnotatedParameter;
 import com.springboot.entity.User;
+import org.apache.ibatis.annotations.MapKey;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
+import java.util.Map;
 
 @Mapper
 public interface UserMapper {
@@ -13,7 +17,7 @@ public interface UserMapper {
      */
 
     //@Select("insert into t_user values(null, 'admin', '123456', true, 23, '2091921193@qq.com')")
-    int AddUser(User user);
+    void AddUser(User user);
 
     /**
      * 查询所有用户
@@ -23,7 +27,22 @@ public interface UserMapper {
     /**
      * 根据用户名查询用户信息
      */
-    User SelectUserByUserName(String username);
+    User SelectUserByUserName(@Param("username") String UserName);
 
-    User Login(String username, String password);
+    User Login(@Param("username") String UserName, @Param("password") String PassWord);
+
+    User GetUserById(@Param("id") int Id);
+
+    /**
+     * 查询用户信息的总记录数
+     */
+    int GetUserCount();
+
+    /**
+     * 根据Id查询用户信息为一个Map
+     */
+    Map<String, Object> GetUserByIdToMap(@Param("id")int Id);
+
+    @MapKey("Id")
+    List<Map<String, Object>> GetAllUserToMap();
 }

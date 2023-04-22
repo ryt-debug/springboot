@@ -90,4 +90,34 @@ public class TestController {
             return new Result<>().Except(ex);
         }
     }
+
+    @GetMapping("/getUserById")
+    public Result<?> GetUserById(){
+        try{
+            return new Result<>().Success().Data(userMapper.GetUserById(2));
+        }
+        catch (Exception ex){
+            return new Result<>().Except(ex);
+        }
+    }
+
+    @GetMapping("/getUserCount")
+    public Result<?> GetUserCount(){
+        try{
+            return new Result<>().Success().Data(userMapper.GetUserCount());
+        }
+        catch (Exception ex){
+            return new Result<>().Except(ex);
+        }
+    }
+
+    @GetMapping("/getUserByIdToMap")
+    public Result<?> GetUserByIdToMap(){
+        try{
+            return new Result<>().Success().Data(userMapper.GetUserByIdToMap(2));
+        }
+        catch (Exception ex){
+            return new Result<>().Except(ex);
+        }
+    }
 }

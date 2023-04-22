@@ -18,9 +18,14 @@ public class Result<T> {
         return this;
     }
 
-    public Result<T> Except(Exception ex){
+    public Result<T> Except(Throwable ex){
         this.code = -1;
-        this.msg = "Exception Message:" + ex.getMessage();
+        if(ex.getMessage() == null) {
+            this.msg = "Exception Message:" + ex.getCause();
+        }
+        else{
+            this.msg = "Exception Message:" + ex.getMessage();
+        }
         return this;
     }
 
