@@ -55,4 +55,9 @@
     <select id="GetAllUserToMap" resultType="Map">
         select * from t_user
     </select>
+
+    <select id="GetUserByLike" resultType="User">
+        select * from t_user where UserName like '%${username}%'
+        <!-- select * from t_user where UserName like "%"#{username}"%" -->
+    </select>
 </mapper>

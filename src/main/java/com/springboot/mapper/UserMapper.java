@@ -1,6 +1,5 @@
 package com.springboot.mapper;
 
-import com.fasterxml.jackson.databind.introspect.AnnotatedParameter;
 import com.springboot.entity.User;
 import org.apache.ibatis.annotations.MapKey;
 import org.apache.ibatis.annotations.Mapper;
@@ -45,4 +44,6 @@ public interface UserMapper {
 
     @MapKey("Id")
     List<Map<String, Object>> GetAllUserToMap();
+
+    List<User> GetUserByLike(@Param("username") String UserName);
 }

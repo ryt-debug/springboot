@@ -120,4 +120,14 @@ public class TestController {
             return new Result<>().Except(ex);
         }
     }
+
+    @GetMapping("/getUserByLike")
+    public Result<?> GetUserByLike(){
+        try{
+            return new Result<>().Success().Data(userMapper.GetUserByLike("ad"));
+        }
+        catch (Exception ex){
+            return new Result<>().Except(ex);
+        }
+    }
 }
