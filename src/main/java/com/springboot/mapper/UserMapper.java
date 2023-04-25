@@ -46,4 +46,9 @@ public interface UserMapper {
     List<Map<String, Object>> GetAllUserToMap();
 
     List<User> GetUserByLike(@Param("username") String UserName);
+
+    /**
+     * 批量删除
+     */
+    int DeleteMore(@Param("ids") String ids);
 }

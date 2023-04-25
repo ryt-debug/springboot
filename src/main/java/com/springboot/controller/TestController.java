@@ -130,4 +130,14 @@ public class TestController {
             return new Result<>().Except(ex);
         }
     }
+
+    @GetMapping("/deleteMore")
+    public Result<?> DeleteMore(){
+        try{
+            return new Result<>().Success().Data(userMapper.DeleteMore("2,3"));
+        }
+        catch (Exception ex){
+            return new Result<>().Except(ex);
+        }
+    }
 }
