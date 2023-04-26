@@ -3,7 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.springboot.mapper.UserMapper">
-    <!--  查询结果没有任何一个实体类与其相对应的时候，就把该结果转换为Map  -->
+    <!--  自定义映射，查询结果没有任何一个实体类与其相对应的时候，就把该结果转换为Map  -->
     <resultMap id="ResultMap" type="com.springboot.entity.User">
         <id column="Id" jdbcType="INTEGER" property="Id"/>
         <result column="UserName" jdbcType="VARCHAR" property="UserName"/>
@@ -15,7 +15,7 @@
     
     <insert id="AddUser">
         insert into t_user(Id, UserName, PassWord, Sex, Age, Email)
-        values (null, #{UserName}, #{PassWord}, #{Sex}, #{Age}, #{Email})
+        values (null, #{UserName}, #{PassWord}, ${Sex}, ${Age}, #{Email})
     </insert>
 
     <select id="SelectAllUser" resultType="User">
@@ -25,8 +25,7 @@
     <select id="SelectUserByUserName" resultType="User">
         select *
         from t_user
-        where Id = 2
-          and UserName = #{username}
+        where UserName = #{username}
     </select>
 
     <select id="Login" resultType="User">
@@ -64,4 +63,8 @@
     <delete id="DeleteMore">
         delete from t_user where id in (${ids})
     </delete>
+
+    <select id="GetUserByTableName" resultType="User">
+        select * from ${tableName}
+    </select>
 </mapper>

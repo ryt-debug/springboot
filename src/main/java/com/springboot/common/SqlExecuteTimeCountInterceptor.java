@@ -54,7 +54,7 @@ public class SqlExecuteTimeCountInterceptor implements Interceptor {
             // 格式化Sql语句，去除换行符，替换参数
             sql = formatSQL(sql, parameterObject, parameterMappingList);
 
-            logger.info("执行 SQL：[{}]执行耗时[ {} ms])", sql, timeCount);
+            logger.info("执行 SQL:[{}]执行耗时[ {} ms])", sql, timeCount);
         }
     }
 
@@ -92,11 +92,11 @@ public class SqlExecuteTimeCountInterceptor implements Interceptor {
             return "";
         }
         Map<String, Object> parameterMap = (Map<String, Object>) parameterObject;
-        StringBuilder paramsBuilder = new StringBuilder("\n参数列表：");
+        StringBuilder paramsBuilder = new StringBuilder("\n参数列表:");
         parameterMap.forEach((key, value) -> {
             parameterMappingList.forEach(parameterMapping -> {
                 if (parameterMapping.getProperty().equals(key)) {
-                    String detail = "[" + key + ":" + value + "]；";
+                    String detail = "[" + key + ":" + value + "]:";
                     paramsBuilder.append(detail);
                 }
             });

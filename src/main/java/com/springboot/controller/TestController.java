@@ -51,7 +51,8 @@ public class TestController {
     @GetMapping("/addUser")
     public Result<?> AddUser(){
         try{
-            userMapper.AddUser(new User(0, "张三", "123", true, 18, "123@cnmd.com"));
+            var user = new User(0, "彭文登", "123", true, 18, "123@cnmd.com");
+            userMapper.AddUser(user);
             return new Result<>().Success();
         }
         catch (Exception ex){
@@ -73,7 +74,7 @@ public class TestController {
     @GetMapping("/selectUserByUserName")
     public Result<?> SelectUserByUserName(){
         try{
-            var user = userMapper.SelectUserByUserName("admin");
+            var user = userMapper.SelectUserByUserName("张三");
             return new Result<>().Data(user);
         }
         catch (Exception ex){
@@ -135,6 +136,16 @@ public class TestController {
     public Result<?> DeleteMore(){
         try{
             return new Result<>().Success().Data(userMapper.DeleteMore("2,3"));
+        }
+        catch (Exception ex){
+            return new Result<>().Except(ex);
+        }
+    }
+
+    @GetMapping("/getUserByTableName")
+    public Result<?> GetUserByTableName(){
+        try{
+            return new Result<>().Success().Data(userMapper.GetUserByTableName("t_user"));
         }
         catch (Exception ex){
             return new Result<>().Except(ex);

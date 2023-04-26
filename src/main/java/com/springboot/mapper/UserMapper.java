@@ -51,4 +51,9 @@ public interface UserMapper {
      * 批量删除
      */
     int DeleteMore(@Param("ids") String ids);
+
+    /**
+     * 按表名查询
+     */
+    List<User> GetUserByTableName(@Param("tableName") String TableName);
 }
