@@ -4,7 +4,7 @@
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.springboot.mapper.UserMapper">
     <!--  自定义映射，查询结果没有任何一个实体类与其相对应的时候，就把该结果转换为Map  -->
-    <resultMap id="ResultMap" type="com.springboot.entity.User">
+    <resultMap id="ResultMap" type="User">
         <id column="Id" jdbcType="INTEGER" property="Id"/>
         <result column="UserName" jdbcType="VARCHAR" property="UserName"/>
         <result column="PassWord" jdbcType="VARCHAR" property="PassWord"/>
@@ -13,7 +13,7 @@
         <result column="Email" jdbcType="VARCHAR" property="Email"/>
     </resultMap>
     
-    <insert id="AddUser">
+    <insert id="AddUser" parameterType="User">
         insert into t_user(Id, UserName, PassWord, Sex, Age, Email)
         values (null, #{UserName}, #{PassWord}, ${Sex}, ${Age}, #{Email})
     </insert>

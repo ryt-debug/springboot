@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.springboot.mapper.EmpMapper">
+    <select id="GetAllEmp" resultType="Emp">
+        select *
+        from employee
+    </select>
+
+    <!-- 多对一映射(多个员工对应一个部门):级联属性赋值 -->
+    <resultMap id="One" type="Emp">
+        <id property="Id" column="EmpId"/>
+        <result property="Name" column="EmpName"/>
+        <result property="dept.Id" column="DeptId"/>
+        <result property="dept.Name" column="DeptName"/>
+    </resultMap>
+    <!-- 多对一映射:association标签 -->
+    <resultMap id="Two" type="Emp">
+        <id property="Id" column="EmpId"/>
+        <result property="Name" column="EmpName"/>
+        <association property="dept" javaType="Dept">
+            <id property="Id" column="DeptId"/>
+            <result property="Name" column="DeptName"/>
+        </association>
+    </resultMap>
+    <select id="GetEmpDetail" resultMap="Two">
+        select e.Id   as EmpId,
+               e.Name as EmpName,
+               d.Id   as DeptId,
+               d.Name as DeptName
+        from employee e
+                 join department d on d.Id = e.DeptId
+        where e.id = #{EmpId}
+    </select>
+    <!-- 多对一映射:分步查询 -->
+    <resultMap id="StepOne" type="Emp">
+        <id property="Id" column="Id"/>
+        <result property="Name" column="Name"/>
+        <!--
+             select:分布查询的sql的唯一标识(namespace.id)
+             column:设置分布查询的条件
+             fetchType:eager设置部分方法为立即加载 lazy设置为延迟加载
+         -->
+        <association property="dept" select="com.springboot.mapper.DeptMapper.GetEmpDetailByStepTwo" column="DeptId" fetchType="eager"> </association>
+    </resultMap>
+    <select id="GetEmpDetailByStepOne" resultMap="StepOne">
+        select * from employee where Id = ${EmpId}
+    </select>
+    <!--
+        分步查询的优点：可以实现延迟加载，但必须在核心配置文件中设置全局配置信息
+        lazyLoadingEnabled:延迟加载的全局开关。开启时，所有关联对象都会延迟加载
+        aggressiveLazyLoading:当开启时，任何方法的调用都会加载该对象的所有属性。否则每个属性都会按需加载
+    -->
+</mapper>
