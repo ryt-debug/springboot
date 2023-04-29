@@ -54,7 +54,7 @@ public class SqlExecuteTimeCountInterceptor implements Interceptor {
             // 格式化Sql语句，去除换行符，替换参数
             sql = formatSQL(sql, parameterObject, parameterMappingList);
 
-            logger.info("执行 SQL:[{}]执行耗时[ {} ms])", sql, timeCount);
+            logger.info("执行 SQL:[{}]执行耗时[{} ms])", sql, timeCount);
         }
     }
 
