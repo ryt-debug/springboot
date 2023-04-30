@@ -19,27 +19,28 @@
     <!-- %m输出的信息,%p日志级别,%t线程名,%d日期,%c类的全名,%-5level:级别从左显示5个字符宽度,%msg:日志消息,%i索引【从数字0开始递增】 -->
     <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
         <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
-            <level>INFO</level>
+            <level>DEBUG</level>
         </filter>
         <encoder>
             <!--%logger{50}:表示logger名字最长50个字符，否则按照句点分割-->
-            <Pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %boldMagenta([%t]) %boldGreen(%-5level) %cyan(%logger{50}) -- %yellow(%msg%n)</Pattern>
+            <Pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %boldGreen(%-5level) %boldMagenta([%t]) %cyan(%logger{50}) -- %yellow(%msg%n)</Pattern>
             <!-- 设置字符集 -->
             <charset>UTF-8</charset>
         </encoder>
     </appender>
 
-    <!--输出到文件-->
-    <!-- 时间滚动输出 level为全部日志 -->
-    <appender name="RUNTIME" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <!-- 正在记录的日志文件的路径及文件名，注释掉这个按照每天生成一个日志文件 -->
-        <!--<file>${LOG_PATH}/public.log</file>-->
-        <!--日志文件输出格式-->
-        <encoder>
-            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{50} -- %msg%n</pattern>
-            <charset>UTF-8</charset> <!-- 设置字符集 -->
-        </encoder>
-        <!-- 日志记录器的滚动策略，按日期，按大小记录 -->
+
+<!--    &lt;!&ndash;输出到文件&ndash;&gt;-->
+<!--    &lt;!&ndash; 时间滚动输出 level为全部日志 &ndash;&gt;-->
+<!--    <appender name="RUNTIME" class="ch.qos.logback.core.rolling.RollingFileAppender">-->
+<!--        &lt;!&ndash; 正在记录的日志文件的路径及文件名，注释掉这个按照每天生成一个日志文件 &ndash;&gt;-->
+<!--        &lt;!&ndash;<file>${LOG_PATH}/public.log</file>&ndash;&gt;-->
+<!--        &lt;!&ndash;日志文件输出格式&ndash;&gt;-->
+<!--        <encoder>-->
+<!--            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{50} &#45;&#45; %msg%n</pattern>-->
+<!--            <charset>UTF-8</charset> &lt;!&ndash; 设置字符集 &ndash;&gt;-->
+<!--        </encoder>-->
+<!--        &lt;!&ndash; 日志记录器的滚动策略，按日期，按大小记录 &ndash;&gt;-->
 <!--        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">-->
 <!--            &lt;!&ndash; 日志归档 后面可以加.zip&ndash;&gt;-->
 <!--            <fileNamePattern>${LOG_PATH}public-%d{yyyy-MM-dd}.%i.log</fileNamePattern>-->
@@ -52,14 +53,14 @@
 <!--            &lt;!&ndash;日志总保存量为10MB&ndash;&gt;-->
 <!--            <totalSizeCap>10MB</totalSizeCap>-->
 <!--        </rollingPolicy>-->
-    </appender>
+<!--    </appender>-->
 
-    <!--时间滚动输出 level为 ERROR 日志 -->
-    <appender name="ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
-        <encoder>
-            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{50} -- %msg%n</pattern>
-            <charset>UTF-8</charset> <!-- 此处设置字符集 -->
-        </encoder>
+<!--    &lt;!&ndash;时间滚动输出 level为 ERROR 日志 &ndash;&gt;-->
+<!--    <appender name="ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">-->
+<!--        <encoder>-->
+<!--            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %-5level %logger{50} &#45;&#45; %msg%n</pattern>-->
+<!--            <charset>UTF-8</charset> &lt;!&ndash; 此处设置字符集 &ndash;&gt;-->
+<!--        </encoder>-->
 <!--        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">-->
 <!--            <fileNamePattern>${LOG_PATH}error-%d{yyyy-MM-dd}.%i.log</fileNamePattern>-->
 <!--            <maxHistory>10</maxHistory>-->
@@ -70,30 +71,29 @@
 <!--            &lt;!&ndash;日志总保存量为10MB&ndash;&gt;-->
 <!--            <totalSizeCap>10MB</totalSizeCap>-->
 <!--        </rollingPolicy>-->
-        <!-- 此日志文件只记录ERROR级别的 -->
-        <filter class="ch.qos.logback.classic.filter.LevelFilter">
-            <level>ERROR</level>
-            <onMatch>ACCEPT</onMatch>
-            <onMismatch>DENY</onMismatch>
-        </filter>
-    </appender>
+<!--        &lt;!&ndash; 此日志文件只记录ERROR级别的 &ndash;&gt;-->
+<!--        <filter class="ch.qos.logback.classic.filter.LevelFilter">-->
+<!--            <level>ERROR</level>-->
+<!--            <onMatch>ACCEPT</onMatch>-->
+<!--            <onMismatch>DENY</onMismatch>-->
+<!--        </filter>-->
+<!--    </appender>-->
 
     <!--开发环境:打印控制台-->
     <springProfile name="dev">
         <!--<logger name="com.phfund" level="debug"/>-->
-        <root level="DEBUG">
+        <root level="INFO">
             <appender-ref ref="CONSOLE" />
-            <appender-ref ref="RUNTIME" />
-            <appender-ref ref="ERROR" />
         </root>
+        <logger name="com.springboot.mapper" level="DEBUG"/>
     </springProfile>
 
     <!--生产环境:输出到文件-->
-    <springProfile name="prd">
-        <root level="INFO">
-            <appender-ref ref="RUNTIME" />
-            <appender-ref ref="ERROR" />
-        </root>
-    </springProfile>
+<!--    <springProfile name="prd">-->
+<!--        <root level="INFO">-->
+<!--            <appender-ref ref="RUNTIME" />-->
+<!--            <appender-ref ref="ERROR" />-->
+<!--        </root>-->
+<!--    </springProfile>-->
 
 </configuration>

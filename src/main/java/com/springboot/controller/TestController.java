@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.Registration;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 @CrossOrigin
@@ -185,6 +187,30 @@ public class TestController {
         try {
             return new Result<>().Data(dynamicSqlMapper.GetEmpByConditions(new Emp(2, "张三", null)));
         } catch (Exception ex) {
+            return new Result<>().Except(ex);
+        }
+    }
+
+    @GetMapping("/deleteMoreByArray")
+    public Result<?> DeleteMoreByArray() {
+        try {
+            return new Result<>().Data(dynamicSqlMapper.DeleteMoreByArray(new int[]{8}));
+        } catch (Exception ex) {
+            return new Result<>().Except(ex);
+        }
+    }
+
+    @GetMapping("/insertMoreByList")
+    public Result<?> InsertMoreByList(){
+        try {
+            var dept = new Dept(1, "IT", null);
+            return new Result<>().Data(dynamicSqlMapper.InsertMoreByList(
+                    Arrays.asList(
+                            new Emp(0, "a", dept),
+                            new Emp(0, "a", dept)
+                    )
+            ));
+        } catch (Exception ex){
             return new Result<>().Except(ex);
         }
     }
