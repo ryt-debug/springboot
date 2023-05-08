@@ -12,10 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.Registration;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+import java.util.random.RandomGenerator;
 
 @CrossOrigin
 @RequestMapping("/api/TestController")
@@ -218,9 +216,12 @@ public class TestController {
     @PostMapping("/testParams")
     public Result<?> TestParams(@RequestBody Map<String, Object> params){
         try{
-            int id = (int)params.get("id");
-            // System.out.println(params);
-            return new Result<>().Success().Data(id);
+            Double id = (Double) params.get("id");
+            return new Result<>().Success().Data(new HashMap<String, Object>(){
+                {
+                    put("id", id);
+                }
+            });
         }
         catch(Exception ex){
             return new Result<>().Except(ex);
