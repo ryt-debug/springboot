@@ -6,11 +6,10 @@ import com.springboot.mapper.DeptMapper;
 import com.springboot.mapper.EmpMapper;
 import com.springboot.mapper.UserMapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @CrossOrigin
 @RestController // 里面的ResponseBody注解是用来格式化返回数据为json的
@@ -180,6 +179,18 @@ public class TestController {
             return new Result<>().Success().Data(dept.getEmps());
         }
         catch (Exception ex){
+            return new Result<>().Except(ex);
+        }
+    }
+
+    @PostMapping("/testParams")
+    public Result<?> TestParams(@RequestBody Map<String, Object> params){
+        try{
+            //int id = (int)params.get("id");
+            System.out.println(params);
+            return null;
+        }
+        catch(Exception ex){
             return new Result<>().Except(ex);
         }
     }
