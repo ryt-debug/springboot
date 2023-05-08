@@ -9,7 +9,7 @@ public class Result<T> {
     private T data = null;
 
     public Result<T> Success(){
-        code = 1;
+        code = 0;
         return this;
     }
 

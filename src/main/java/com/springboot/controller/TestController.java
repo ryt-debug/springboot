@@ -217,9 +217,9 @@ public class TestController {
     @PostMapping("/testParams")
     public Result<?> TestParams(@RequestBody Map<String, Object> params){
         try{
-            //int id = (int)params.get("id");
-            System.out.println(params);
-            return null;
+            int id = (int)params.get("id");
+            // System.out.println(params);
+            return new Result<>().Success().Data(id);
         }
         catch(Exception ex){
             return new Result<>().Except(ex);
