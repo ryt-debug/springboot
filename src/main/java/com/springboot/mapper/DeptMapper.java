@@ -13,7 +13,12 @@ public interface DeptMapper {
     Dept GetEmpDetailByStepTwo(@Param("DeptId") int DeptId);
 
     /**
-     * 获取部门已经部门中的所有员工信息
+     * 获取部门以及部门中的所有员工信息
      */
     Dept GetDeptDetail(@Param("DeptId") int DeptId);
+
+    /**
+     * 分步查询部门以及部门中的员工  第一步
+     */
+    Dept GetDeptDetailByStepOne(@Param("DeptId") int DeptId);
 }

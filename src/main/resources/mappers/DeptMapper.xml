@@ -3,6 +3,7 @@
         PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.springboot.mapper.DeptMapper">
+    <!-- 这个resultMap可以不用，因为这是在一个表中查询不会出现字段名冲突的情况 -->
     <resultMap id="DeptMap" type="Dept">
         <id property="Id" column="Id"/>
         <result property="Name" column="Name"/>
@@ -31,5 +32,19 @@
         from department d
             join employee e on d.Id = e.DeptId
         where d.Id = ${DeptId}
+    </select>
+
+    <!-- 一对多映射:分步查询 -->
+    <resultMap id="DeptMapStepOne" type="Dept">
+        <id property="Id" column="DeptId"/>
+        <result property="Name" column="DeptName"/>
+        <collection property="Emps" select="com.springboot.mapper.EmpMapper.GetDeptDetailByStepTwo" column="DeptId"/>
+    </resultMap>
+    <!-- 分步查询:第一步 -->
+    <select id="GetDeptDetailByStepOne" resultMap="DeptMapStepOne">
+        select d.Id as DeptId,
+               d.Name as D2ptName
+        from department d
+        where Id = ${DeptId}
     </select>
 </mapper>

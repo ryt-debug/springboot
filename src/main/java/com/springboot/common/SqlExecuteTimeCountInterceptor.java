@@ -17,10 +17,10 @@ import java.util.Properties;
 /**
  * 设置控制台输出运行的SQL语句
  */
-@Intercepts({@Signature(type = StatementHandler.class, method = "query", args = {Statement.class, ResultHandler.class}),
-        @Signature(type = StatementHandler.class, method = "update", args = {Statement.class}),
-        @Signature(type = StatementHandler.class, method = "batch", args = {Statement.class})})
-@Component
+//@Intercepts({@Signature(type = StatementHandler.class, method = "query", args = {Statement.class, ResultHandler.class}),
+//        @Signature(type = StatementHandler.class, method = "update", args = {Statement.class}),
+//        @Signature(type = StatementHandler.class, method = "batch", args = {Statement.class})})
+//@Component
 public class SqlExecuteTimeCountInterceptor implements Interceptor {
 
     private static final Logger logger = LoggerFactory.getLogger(SqlExecuteTimeCountInterceptor.class);
@@ -54,7 +54,7 @@ public class SqlExecuteTimeCountInterceptor implements Interceptor {
             // 格式化Sql语句，去除换行符，替换参数
             sql = formatSQL(sql, parameterObject, parameterMappingList);
 
-            logger.info("执行 SQL:[{}]执行耗时[ {} ms])", sql, timeCount);
+            logger.info("执行 SQL:[{}]执行耗时[{} ms])", sql, timeCount);
         }
     }
 

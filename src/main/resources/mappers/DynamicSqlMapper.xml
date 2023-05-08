@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.springboot.mapper.DynamicSqlMapper">
+    <sql id="empCols">Id, Name, DeptId</sql>
+
+    <resultMap id="EmpMap" type="Emp">
+        <id property="Id" column="Id"/>
+        <result property="Name" column="Name"/>
+        <association property="dept" select="com.springboot.mapper.DeptMapper.GetEmpDetailByStepTwo" column="DeptId"/>
+    </resultMap>
+    <select id="GetEmpByConditions" resultMap="EmpMap">
+        select <include refid="empCols"/>
+        from employee
+        <where>
+            <if test="emp.Name != null and emp.Name !=''">
+                and Name = #{emp.Name}
+            </if>
+            <!--
+                <if test="? ? ?">
+                    and 和 or 关键字只能写在后面判断语句开头，if标签会自动将不用的逻辑运算符去除
+                </if>
+            -->
+        </where>
+<!--        <where>-->
+<!--            <choose>-->
+<!--                <when test="">-->
+<!--                    &lt;!&ndash; choose里至少有一个when标签，一个成立其他的when标签不再执行 &ndash;&gt;-->
+<!--                </when>-->
+<!--                <otherwise>-->
+<!--                    &lt;!&ndash; choose里可以没有otherwise标签，其他条件都不满足 &ndash;&gt;-->
+<!--                </otherwise>-->
+<!--            </choose>-->
+<!--        </where>-->
+    </select>
+
+    <delete id="DeleteMoreByArray">
+        delete from employee
+        where Id in
+        <foreach collection="EmpIds" item="EmpId" separator="," open="(" close=")">
+            ${EmpId}
+        </foreach>
+    </delete>
+    
+    <insert id="InsertMoreByList">
+        insert into employee(id, name, deptid) values
+        <foreach collection="emps" item="emp" separator=",">
+            (null, #{emp.Name}, #{emp.dept.Id})
+        </foreach>
+    </insert>
+</mapper>
