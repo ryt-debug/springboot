@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 @CrossOrigin
+@RequestMapping("/api/TestController")
 @RestController // 里面的ResponseBody注解是用来格式化返回数据为json的
 public class TestController {
     //    @GetMapping("/testAjaxGet")
