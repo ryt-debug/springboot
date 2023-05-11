@@ -15,5 +15,5 @@ public class Check {
     private int Id;
     private Date CheckInTime;
     private Date CheckOutTime;
-    private int ReserveId;
+    private Reserve Reserve;
 }

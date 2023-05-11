@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.util.List;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -12,4 +14,5 @@ import lombok.ToString;
 public class PianoRoom {
     private int Id;
     private String Name;
+    private List<Reserve> Reserves;
 }

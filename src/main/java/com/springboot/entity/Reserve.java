@@ -16,7 +16,7 @@ public class Reserve {
     private Date ReserveStartTime;
     private Date ReserveEndTime;
     private Date SubmitTime;
-    private int StudentId;
+    private Student Student;
     private int Status;
-    private int RoomId;
+    private PianoRoom PianoRoom;
 }
