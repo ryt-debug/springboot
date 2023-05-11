@@ -15,4 +15,9 @@
                or (r.ReserveStartTime &lt; #{StartTime} and r.ReserveEndTime > #{EndTime})
         )
     </select>
+
+   <insert id="CreateReserve">
+       insert into reserve(ReserveStartTime, ReserveEndTime, SubmitTime, StudentId, Status, RoomId)
+       values(#{StartTime}, #{EndTime}, #{SubmitTime}, ${StudentId}, 2, ${RoomId})
+   </insert>
 </mapper>

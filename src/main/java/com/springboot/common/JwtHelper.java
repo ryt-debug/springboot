@@ -40,11 +40,11 @@ public class JwtHelper {
             // JWTVerifier verifier = JWT.require(Algorithm.HMAC256(TOKEN_SECRET)).build();
             // jwt = verifier.verify(token);
             jwt = JWT.require(Algorithm.HMAC256(TOKEN_SECRET)).build().verify(token);
-            //decodedJWT.getClaim("属性").asString()  获取负载中的属性值
+            // var id = jwt.getClaim("Id").asInt(); // 获取负载中的属性值
+            return jwt.getClaims();
         } catch (Exception e) {
             //解码异常则抛出异常
             return null;
         }
-        return jwt.getClaims();
     }
 }

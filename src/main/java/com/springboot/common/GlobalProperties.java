@@ -1,6 +1,8 @@
 package com.springboot.common;
 
 
+import java.text.SimpleDateFormat;
+
 public class GlobalProperties {
     /**
      * token 过期时间

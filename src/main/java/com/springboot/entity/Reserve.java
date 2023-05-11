@@ -5,6 +5,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Data
@@ -13,9 +14,9 @@ import java.util.Date;
 @ToString
 public class Reserve {
     private int Id;
-    private Date ReserveStartTime;
-    private Date ReserveEndTime;
-    private Date SubmitTime;
+    private LocalDateTime ReserveStartTime;
+    private LocalDateTime ReserveEndTime;
+    private LocalDateTime SubmitTime;
     private Student Student;
     private int Status;
     private PianoRoom PianoRoom;
