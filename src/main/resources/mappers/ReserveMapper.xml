@@ -12,7 +12,7 @@
                 join reserve r on r.RoomId = pr.Id and r.Status in (2, 3)
             where (r.ReserveEndTime > #{StartTime})
                or (r.ReserveStartTime &lt; #{EndTime})
-               or (r.ReserveStartTime &lt; #{StartTime} and r.ReserveEndTime > #{EndTime})
+               or (r.ReserveStartTime &lt;= #{StartTime} and r.ReserveEndTime >= #{EndTime})
         )
     </select>
 

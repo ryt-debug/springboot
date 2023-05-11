@@ -25,7 +25,7 @@ public class ReserveController {
                 return new Result<>().ParaMissing();
             LocalDateTime StartTime = TimeParseHelper.Parse((String) params.get("StartTime")),
                     EndTime = TimeParseHelper.Parse((String) params.get("EndTime"));
-            return new Result<>().Success().Data(reserveMapper.AvailableRoom(StartTime, EndTime));
+            return new Result<>().Success().Msg("查询成功！").Data(reserveMapper.AvailableRoom(StartTime, EndTime));
         } catch (Exception ex) {
             return new Result<>().Except(ex);
         }
@@ -42,7 +42,10 @@ public class ReserveController {
             LocalDateTime StartTime = TimeParseHelper.Parse((String) params.get("StartTime")),
                     EndTime = TimeParseHelper.Parse((String) params.get("EndTime"));
             int StudentId = (Integer) params.get("StudentId"), RoomId = (Integer) params.get("RoomId");
-            return new Result<>().Success().Data(reserveMapper.CreateReserve(StudentId, RoomId, StartTime, EndTime, LocalDateTime.now()));
+            var list = reserveMapper.AvailableRoom(StartTime, EndTime);
+            if(list == null || list.size() == 0)
+                return new Result<>().Failure().Msg("预约失败，时间冲突");
+            return new Result<>().Success().Msg("预约成功！").Data(reserveMapper.CreateReserve(StudentId, RoomId, StartTime, EndTime, LocalDateTime.now()));
         } catch (Exception ex) {
             return new Result<>().Except(ex);
         }
